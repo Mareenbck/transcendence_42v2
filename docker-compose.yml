@@ -4,16 +4,16 @@ services:
   api:
     container_name: "app-back"
     build:
-      context: ./Back-End/
+      context: ./api/
       dockerfile: Dockerfile
     depends_on:
       - postgres
     volumes:
-      - ./Back-End:/usr/src/app
+      - ./api:/usr/src/app
       - back_node_modules:/usr/src/app/node_modules
     # command: npm run start:dev
     env_file:
-        - ./Back-End/.env
+        - ./api/.env
     ports:
       - 5555:5555
       - 3000:3000
@@ -38,10 +38,10 @@ services:
   frontend:
     container_name: react
     build:
-      context: ./Front-End/
+      context: ./client/
       dockerfile: Dockerfile
     volumes:
-      - ./Front-End:/usr/src/app
+      - ./client:/usr/src/app
       - front_node_modules:/usr/src/app/node_modules
     ports:
       - 8080:8080
