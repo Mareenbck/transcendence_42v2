@@ -14,7 +14,7 @@ const Menu = () => {
 
 	return (
 		<>
-		<div className={style.mainPos}>
+		{/* <div className={style.mainPos}> */}
 			<SideBar title="Profile" />
 			<div className="container-menu">
 				<h2 >Welcome {authCtx.username}</h2>
@@ -25,7 +25,7 @@ const Menu = () => {
 				</div>
 			</div>
 			{!isLoggedIn && <Navigate to="/" replace={true} />}
-			</div>
+			{/* </div> */}
 			<ButtonToggle />
 		</>
 		)

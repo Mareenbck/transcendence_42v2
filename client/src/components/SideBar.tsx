@@ -12,9 +12,9 @@ const Sidebar = (props: any) => {
     const [username, setUsername] = useState(authCtx.username)
 
     const links = [
-        { name: "Game", path: "/game" },
-        { name: "Chat", path: "/chat/message" },
-        { name: "Scores", path: "/scores" },
+        { name: "Game", path: "/game",  icon: "fa-solid fa-table-tennis-paddle-ball"},
+        { name: "Chat", path: "/chat/message", icon: "fa-solid fa-comments" },
+        { name: "Leaderboard", path: "/leaderboard", icon: "fa-solid fa-ranking-star" },
       ];
 
       useEffect(() => {
@@ -35,23 +35,17 @@ const Sidebar = (props: any) => {
                 <MyAccountMenu authCtx={authCtx}></MyAccountMenu>
                 <h4>{username}</h4>
             </div>
-            <br />
-            <br />
             <div className="links">
                 <ul>
                     {links.map((link) => (
                         <li key={link.path}>
-                            <div className="li">
-                                <div className="hexa">
-                                    <span className="bi bi-hexagon-fill"></span>
-                                    <span className="bi bi-hexagon" id="bord"></span>
-                                </div>
-                                <Link to={link.path} onClick={() => handleLinkClick(link.path)}
-                                    className={activeLink === link.path ? "active" : ""}> {link.name}
-                                </Link>
+                            <Link to={link.path} onClick={() => handleLinkClick(link.path)} className={activeLink === link.path ? "active" : ""}> 
+                            <div className="hexa">
+                                <span className="bi bi-hexagon-fill"><i className={link.icon}></i></span>
+                                <span className="bi bi-hexagon" id="bord"></span>
                             </div>
-                            <br />
-                            <br />
+                                {link.name}
+                            </Link>
                         </li>
                     ))}
                 </ul>

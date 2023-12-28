@@ -1,8 +1,94 @@
 .sidebar {
-	flex: 0 0 360px; /* Utilise flex pour spécifier une largeur fixe de 360px */
-	background-color: #699BF7;
-	min-height: 100%;
+    background-color: #699BF7;
+    height: 15vh;
+    display: flex;
+    /* width: 100vh; */
+    justify-content: space-between;
+	h4 {
+		font-weight: 700;
+		font-size: 28px;
+		line-height: 36px;
+		color: black;
+	}
+	.title {
+		display: flex;
+		margin-left: 50px;
+		width: 20%;
+		align-items: center;
+	}
+	.links {
+		margin-right: 50px;
+		width: 80%;
+		align-self: center;
+		height: inherit;
+		ul {
+			display: flex;
+    		justify-content: space-around;
+   	 		height: inherit;
+    		align-items: center;
+		}
+		li {
+			display: flex;
+			align-items: center;
+			height: 100%;
+			flex-wrap: wrap;
+			font-weight: 700;
+			font-size: 19px;
+			a {
+				display: contents;
+				color: black ;
+			}
+			.active {
+				font-weight: 700;
+				font-size: 19px;
+				color: rgb(105, 105, 105);
+				i {
+					color: #687080 !important;
+				}
+			}
+			a:hover{
+				color: #d3e3ff !important;
+				i {
+					color: #687080 !important;
+				}
+				#bord {
+					color: #687080;
+				}
+			}
+			.hexa {
+				position: relative;
+				width: 100px;
+    			height: 100px;
+				.bi-hexagon-fill {
+					position: absolute;
+					left: 0;
+					i {
+						position: absolute;
+						color: black;
+						top: 34px;
+						right: 18px;
+						font-size: 23px
+					}
+				}
+				.bi-hexagon {
+					position: absolute;
+					left: 0;
+					z-index: 2;
+				}
+				#bord {
+					color: black;
+				}
+
+			}
+			span {
+				font-size: 63px;
+				color: rgb(203, 217, 242);
+			}
+		}
+	}
 }
+
+
 /* height: 100vh; */
 /* height: fit-content; */
 /* display: grid; */
@@ -34,21 +120,7 @@
 
 } */
 
-.sidebar h4 {
-	font-weight: 700;
-	font-size: 28px;
-	line-height: 36px;
-	color: black;
-}
 
-.sidebar .title {
-	display: flex;
-	margin-top: 64px;
-	margin-left: 50px;
-	width: inherit;
-	align-items: center;
-	margin-bottom: 30px;
-}
 /* @media (max-width: 1700px) {
 	.sidebar .title {
 		display: flex;
@@ -60,24 +132,9 @@
 	}
 } */
 
-.links {
-	display: flex;
-	margin-left: 35px;
-}
 
-.links ul {
-	list-style-type: none;
-}
 
-.links .li {
-	display: flex;
-    align-items: center;
-	font-style: normal;
-	font-weight: 900;
-	font-size: 18px;
-	line-height: 20px;
-	height: 120px;
-}
+
 /* @media (max-width: 1700px) {
 	.links .li {
 		display: flex;
@@ -91,24 +148,10 @@
 
 } */
 
-.li span {
-	font-size: 63px;
-	color: rgb(203, 217, 242);
-	font-weight: 200;
-	margin-right: 20px;
-	width: 61px;
-}
-
-#bord {
-	color: black;
-}
 
 
-.links a {
-    font-weight: 700;
-    font-size: 19px;
-    color: black;
-}
+
+
 /* @media (max-width: 1700px) {
 	.links a {
 		font-weight: 500;
@@ -118,18 +161,8 @@
 
 } */
 
-.links a.active {
-    font-weight: 700;
-    font-size: 19px;
-    color: rgb(105, 105, 105);
-}
 
-.hexa {
-	position: relative;
-	top: 20px;
-	width: 100px;
-	height: 100px;
-  }
+
 
   /* @media (max-width: 1700px) {
 	.hexa {
@@ -140,16 +173,3 @@
 
 } */
 
-  .bi-hexagon-fill {
-	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: 1;
-  }
-
-  .bi-hexagon {
-	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: 2;
-  }

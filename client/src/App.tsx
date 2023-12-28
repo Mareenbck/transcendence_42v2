@@ -32,7 +32,7 @@ function App() {
 			<Route path="/auth/42/callback" element={<Callback42 />} />
 			<Route path='/menu' element={<Menu />} />
 			<Route path='/settings' element={<Setting />} />
-			<Route path='/scores' element={<Scores />} />
+			<Route path='/leaderboard' element={<Scores />} />
 			<Route path='/*' element={<NotFound />} />
 			<Route path={`/users/profile/:id`} element={<Profile />} />
 		</Routes>

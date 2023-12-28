@@ -9,11 +9,11 @@ body{
     padding: 0;
 }
 
-.main{
+/* .main{
     display: flex;
     flex-direction: row;
     height: 100vh;
-}
+} */
 
 .one{
     width: 100%;
