@@ -1,12 +1,12 @@
 # compiled output
-Back-End/dist
-Back-End/.env
-Back-End/node_modules
-Front-End/node_modules
-Back-End/uploads/*
-!Back-End/uploads/avatar-Morange.png
-!Back-End/uploads/avatar-Wbleu.jpg
-!Back-End/uploads/avatar-Wred.jpg
+api/dist
+api/.env
+api/node_modules
+client/node_modules
+api/uploads/*
+!api/uploads/avatar-Morange.png
+!api/uploads/avatar-Wbleu.jpg
+!api/uploads/avatar-Wred.jpg
 node_modules/
 package-lock.json
 package.json
