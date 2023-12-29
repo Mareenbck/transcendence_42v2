@@ -4,15 +4,14 @@ import { useParams } from "react-router-dom";
 import { FriendContext } from "../../store/FriendshipContext";
 import AuthContext from "../../store/AuthContext";
 
-const ProfileCard = (props: any) => {
+const ProfileCard = () => {
 	const authCtx = useContext(AuthContext);
 	const friendCtx = useContext(FriendContext);
 	const { id } = useParams();
 	const [avatar, setAvatar] = useState<any>();
 	const [ftAvatar, setFtAvatar] = useState<any>();
 	const [username, setUsername] = useState<any>();
-	const [user, setUser] = useState(null);
-	const [isMyProfile, setIsMyProfile] = React.useState<boolean>();
+	const [isMyProfile, setIsMyProfile] = useState<boolean>();
 
 
 	useEffect(() => {
@@ -34,7 +33,6 @@ const ProfileCard = (props: any) => {
 			});
 			if (response.ok) {
 				const data = await response.json();
-				setUser(data);
 				setUsername(data.username);
 				if (isMyProfile && authCtx.ftAvatar) {
 					setFtAvatar(authCtx.ftAvatar);

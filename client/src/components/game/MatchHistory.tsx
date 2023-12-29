@@ -36,7 +36,7 @@ const MatchHistory = (props: any) => {
 	const lastFiveGames = games.slice(0, 5);
 
 	return (
-		<>
+		<div className="scrollContainer">
 		  {lastFiveGames.map((game: any) => (
 			<ListItem key={game.id}>
 				<div className="container-match">
@@ -46,7 +46,7 @@ const MatchHistory = (props: any) => {
 				</div>
 			</ListItem>
 		  ))}
-		</>
+		</div>
 	)
 }
 

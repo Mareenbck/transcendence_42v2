@@ -1,13 +1,13 @@
 import React from "react";
 import '../../style/Profile.css'
 import ShowFriends from "../friends/ShowFriends";
-import TitleCard from "./CardTitle";
 import BodyStatsCard from "./BodyStatsCard";
 import MenuCard from "./MenuCard";
 import MatchHistory from "../game/MatchHistory";
 import ShowAchievements from "../game/ShowAchievements";
 import Table from "../scores/Table"
 import Podium from "../scores/Podium"
+import FriendsDemands from "../friends/FriendsDemands";
 
 const colorMap = {
 	red: "#FF5166",
@@ -18,10 +18,8 @@ const colorMap = {
 interface CardProps {
 	color: 'blue' | 'red' | 'green' | 'yellow';
 	title: string;
-	body: string;
+	body?: string;
 	type: 'stats' | 'showFriends' | 'menu' | 'match' | 'achiev' | 'table' | 'viewGame' | 'podium';
-	height?: string;
-	width?: string;
 	icon?: string;
 	friendCtx?: any; 
 	authCtx?: any;
@@ -32,12 +30,7 @@ interface CardProps {
 const Card: React.FC<CardProps>  = (props) => {
 	const color: string = colorMap[props.color] || '';
 
-	const styles = {
-		width: props.width,
-		height: props.height,
-	  };
-
-	const getCardContent = (props: CardProps): React.ReactNode => {
+	const getCardContent = (): React.ReactNode => {
 		switch (props.type) {
 			case 'stats':
 				return <BodyStatsCard icon={props.icon} />;
@@ -61,14 +54,16 @@ const Card: React.FC<CardProps>  = (props) => {
 	};
 
 	return (
-		<>
-		<div className={`card`} style={styles}>
-		{props.style !== "none" ? (
-			<TitleCard color={color} title={props.title} type={props.type} friendCtx={props.friendCtx} authCtx={props.authCtx}></TitleCard>)
-				: null}
-			{getCardContent(props)}
+		<div className='card'>
+			{props.style !== "none" && (
+        		<div className='title-card'>
+         		 	<div className='custom-status' style={{ background: color }}></div>
+          			<h5>{props.title}</h5>
+         	 		{props.type === 'showFriends' && <FriendsDemands token={props.authCtx.token} authCtx={props.authCtx} friendCtx={props.friendCtx} />}
+        		</div>
+     		 )}
+     		 {getCardContent()}
 		</div>
-		</>
 	)
 }
 
