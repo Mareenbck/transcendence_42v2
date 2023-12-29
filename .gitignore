@@ -2,7 +2,7 @@
 api/dist
 api/.env
 api/node_modules
-Front-End/node_modules
+client/node_modules
 api/uploads/*
 !api/uploads/avatar-Morange.png
 !api/uploads/avatar-Wbleu.jpg
