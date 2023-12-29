@@ -24,8 +24,8 @@ const TitleCard = (props: any) => {
 
 	return (
 		<>
-		<div className={titleClass}>
-			<div className={statusClass} style={color}></div>
+		<div className='title-card'>
+			<div className='custom-status' style={color}></div>
 			<h5>{props.title}</h5>
 			{content}
 		</div>
