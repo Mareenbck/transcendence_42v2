@@ -12,7 +12,7 @@ function Home() {
 	};
 
 	return (
-		<main className='App'>
+		<main className='Appstyle'>
 			<div className="container">
 				<div className="content">
 					<h1>Transcendence</h1>

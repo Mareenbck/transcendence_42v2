@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import '../../style/Profile.css'
 import ShowFriends from "../friends/ShowFriends";
 import TitleCard from "./CardTitle";
@@ -9,59 +9,65 @@ import ShowAchievements from "../game/ShowAchievements";
 import Table from "../scores/Table"
 import Podium from "../scores/Podium"
 
-const Card = (props: any) => {
-	const [color, setColor] = useState<string>('');
-	const [content, setContent] = useState<any>(null);
-	const [titleStyle, setTitleStyle] = useState<string>('m');
+const colorMap = {
+	red: "#FF5166",
+	blue: "#5551FF",
+	green: "#04A777",
+	yellow: "#F9C80E",
+}; 
+interface CardProps {
+	color: 'blue' | 'red' | 'green' | 'yellow';
+	title: string;
+	body: string;
+	type: 'stats' | 'showFriends' | 'menu' | 'match' | 'achiev' | 'table' | 'viewGame' | 'podium';
+	height?: string;
+	width?: string;
+	icon?: string;
+	friendCtx?: any; 
+	authCtx?: any;
+	id?: string; 
+	style?: string;
+  }
+
+const Card: React.FC<CardProps>  = (props) => {
+	const color: string = colorMap[props.color] || '';
 
 	const styles = {
 		width: props.width,
 		height: props.height,
 	  };
 
-	useEffect(() => {
-		if (props.color === 'red') {
-			setColor("#FF5166");
-		} else if (props.color === 'blue') {
-			setColor("#5551FF");
-		} else if (props.color === 'green') {
-			setColor("#04A777");
-		} else if (props.color === 'yellow') {
-			setColor("#F9C80E");
+	const getCardContent = (props: CardProps): React.ReactNode => {
+		switch (props.type) {
+			case 'stats':
+				return <BodyStatsCard icon={props.icon} />;
+			case 'showFriends':
+				return <ShowFriends friendCtx={props.friendCtx} authCtx={props.authCtx} />;
+			case 'menu':
+				return <MenuCard body={props.body} />;
+			case 'match':
+				return <MatchHistory id={props.id} authCtx={props.authCtx} />;
+			case 'achiev':
+				return <ShowAchievements id={props.id} />;
+			case 'table':
+				return <Table id={props.id} />;
+			case 'viewGame':
+				return <MatchHistory id={props.id} authCtx={props.authCtx} />;
+			case 'podium':
+				return <Podium id={props.id} />;
+			default:
+				return null;
 		}
-	}, [props.color])
-
-	useEffect(() => {
-		if (props.type === 'stats') {
-			setContent(<BodyStatsCard icon={props.icon}/>);
-		} else if (props.type === 'showFriends') {
-			setContent(<ShowFriends friendCtx={props.friendCtx} authCtx={props.authCtx}/>);
-		} else if (props.type === 'menu') {
-			setTitleStyle("s");
-			setContent(<MenuCard body={props.body}/>);
-		} else if (props.type === 'match') {
-			setContent(<MatchHistory id={props.id} authCtx={props.authCtx}/>);
-		} else if (props.type === 'achiev') {
-			setContent(<ShowAchievements id={props.id}/>)
-		}else if (props.type === 'table') {
-			setContent(<Table id={props.id}/>)
-		}else if (props.type === 'viewGame') {
-			setContent(<MatchHistory id={props.id} authCtx={props.authCtx}/>)
-		}else if (props.type === 'podium') {
-			setContent(<Podium id={props.id}/>)
-		}
-	}, [props.type])
-
-	const menuCardClass = props.type === 'menu' ? 'menu-card' : '';
+	};
 
 	return (
 		<>
-			<div className={`card ${menuCardClass}`} style={styles}>
-			{props.style !== "none" ? (
-				<TitleCard style={titleStyle} color={color} title={props.title} type={props.type} friendCtx={props.friendCtx} authCtx={props.authCtx}></TitleCard>)
-				 : null}
-				{content}
-			</div>
+		<div className={`card`} style={styles}>
+		{props.style !== "none" ? (
+			<TitleCard color={color} title={props.title} type={props.type} friendCtx={props.friendCtx} authCtx={props.authCtx}></TitleCard>)
+				: null}
+			{getCardContent(props)}
+		</div>
 		</>
 	)
 }

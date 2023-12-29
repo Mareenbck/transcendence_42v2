@@ -1,40 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-
-const MenuCard = (props: any) => {
-	const [body, setBody] = useState<string>('');
-	const [icon, setIcon] = useState<string>('');
-	const [link, setLink] = useState<string>('');
-
-	useEffect(() => {
-		if (props.body === "play") {
-			setBody("choose one of your online friends and play against them in a pong match");
-			setIcon("fa-sharp fa-solid fa-trophy");
-			setLink("/game")
-		} else if (props.body === "watch") {
-			setBody("join a room and attend a pong match between your friends")
-			setIcon("fa-solid fa-video");
-			setLink("/game")
-		} else if (props.body === "chat") {
-			setBody("join a channel or discuss privately with your friends")
-			setIcon("fa-solid fa-comments");
-			setLink("/chat/message")
-		}
-	}, [props.icon, props.body])
-
+interface CardContent {
+	body: string;
+	icon: string;
+	link: string;
+  }
+  
+const bodyMappings: Record<string, CardContent> = {
+	play: {
+		body: "choose one of your online friends and play against them in a pong match",
+		icon: "fa-sharp fa-solid fa-trophy",
+		link: "/game",
+	},
+	watch: {
+		body: "join a room and attend a pong match between your friends",
+		icon: "fa-solid fa-video",
+		link: "/game",
+	},
+	chat: {
+		body: "join a channel or discuss privately with your friends",
+		icon: "fa-solid fa-comments",
+		link: "/chat/message",
+	},
+};
+  
+  const MenuCard = (props: { body: string }) => {
+	const { body, icon, link } = bodyMappings[props.body] || { body: '', icon: '', link: '' };
+  
 	return (
-		<>
-		<Link to={link} className='menu-bodyCard'>
-		<div className='menu-bodyCard'>
-			<p>{body}</p>
-			<div className='font-menu'>
+		<div className="body-card">
+	  		<Link to={link}>
+				<p>{body}</p>
 				<i className={icon}></i>
-			</div>
+	 		 </Link>
 		</div>
-		</Link>
-		<br />
-		</>
-	)
-}
-
-export default MenuCard;
+	);
+  };
+  
+  export default MenuCard;
