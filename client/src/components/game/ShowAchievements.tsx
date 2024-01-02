@@ -4,42 +4,34 @@ import BadgeIcon from "../utils/BadgeIcon";
 import '../../style/Profile.css';
 import { useParams } from "react-router-dom";
 
+interface Achievement {
+	achievement: {
+	  id: number;
+	  name: string;
+	  description: string;
+	  icon: string;
+	  points: number;
+	};
+	achievementId: number;
+	createdAt: string;
+	id: number;
+	userId: number;
+  }
 
 const ShowAchievements = (props: any) => {
 	const authCtx = useContext(AuthContext);
 	const { id } = useParams();
-	const [achievements, setAchievements] = React.useState<any[]>([]);
-	const [isMyProfile, setIsMyProfile] = React.useState<boolean>();
-	const [style, setStyle] = useState<string>(isMyProfile ? "s" : "l");
+	const [achievements, setAchievements] = useState<Achievement[]>([]);
 	let nameIconClass = 'name-icon';
-
-	useEffect(() => {
-		if (id && parseInt(id) === parseInt(authCtx.userId)) {
-			setIsMyProfile(true)
-		} else {
-			setIsMyProfile(false)
-		}
-	}, [id])
+	const apiUrl = `http://${window.location.hostname}:3000/users/`;
 
 	useEffect(() => {
 		fetchUserAchievements();
-		if (isMyProfile) {
-			setStyle("s");
-		} else {
-			setStyle("l")
-		}
 	}, [id])
 
-	if (style === "l") {
-		nameIconClass = "name-icon";
-	} else if (style === "s") {
-		nameIconClass = "name-icon-s";
-	}
-
-	const url = "http://" + window.location.hostname + ':3000'  + `/users/${id}/achievements`;
 	const fetchUserAchievements = async () => {
 		const response = await fetch(
-			url,
+			apiUrl + `${id}/achievements`,
 			{
 				method: "GET",
 				headers: {
@@ -49,7 +41,7 @@ const ShowAchievements = (props: any) => {
 			}
 		)
 		if (response.ok) {
-			const data = await response.json();
+			const data: Achievement[] = await response.json();
 			// Convert image URLs to blobs
 			const achievementsWithBlobs = await Promise.all(data.map(async (achiev: any) => {
 			  const icon = await fetchIcon(achiev.achievement.id);
@@ -61,7 +53,8 @@ const ShowAchievements = (props: any) => {
 
 	const fetchIcon = async (id: number) => {
 		try {
-			const response = await fetch("http://" + window.location.hostname + ':3000' + `/users/${id}/icon`, {
+			const response = await fetch(
+				apiUrl + `${id}/icon`, {
 				method: 'GET',
 			});
 			if (response.ok) {
@@ -75,17 +68,16 @@ const ShowAchievements = (props: any) => {
 
 	return (
 		<>
-		<div className="container-achiev">
+		<div className="container-achiev scrollContainer">
 			{achievements.map((achiev) => (
 				<li key={achiev.id}>
 					<div className={nameIconClass}>
 						<h6>{achiev.achievement.name}</h6>
-						<BadgeIcon style={style} src={achiev.achievement.icon} className="badge-icon" description={achiev.achievement.description}/>
+						<BadgeIcon style='nameIconClass' src={achiev.achievement.icon} className="badge-icon" description={achiev.achievement.description}/>
 					</div>
 				</li>
 			))}
-			</div>
-		<br />
+		</div>
 		</>
 	)
 }

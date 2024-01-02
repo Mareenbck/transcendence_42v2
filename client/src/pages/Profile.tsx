@@ -7,7 +7,7 @@ import MyProfile from '../components/user/MyProfile';
 import UserProfile from '../components/user/UserProfile';
 import ButtonToggle from '../components/utils/ButtonToggle';
 
-const Profile = (props: any) =>  {
+const Profile = () =>  {
 	const { id } = useParams();
 	const authCtx = useContext(AuthContext);
 	const isLoggedIn = authCtx.isLoggedIn;
@@ -23,17 +23,13 @@ const Profile = (props: any) =>  {
 
 	return (
 		<>
-		<div className={style.mainPos}>
-				<div>
-					{isMyProfile ? (
-						<MyProfile id={id}></MyProfile>
-					): (
-						<UserProfile id={id} ></UserProfile>
-						)}
-				<ButtonToggle ></ButtonToggle>
-				</div>
-			{!isLoggedIn && <Navigate to="/" replace={true} />}
-		</div>
+		{isMyProfile ? (
+			<MyProfile ></MyProfile>
+		): (
+			<UserProfile id={id} ></UserProfile>
+		)}
+		<ButtonToggle ></ButtonToggle>
+		{!isLoggedIn && <Navigate to="/" replace={true} />}
 		</>
 	)
 }
