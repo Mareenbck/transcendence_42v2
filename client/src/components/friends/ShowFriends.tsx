@@ -5,11 +5,12 @@ import { AvatarGroup } from '@mui/material';
 import MyAvatar from "../user/Avatar";
 import { Link } from "react-router-dom";
 import useSocket from "../../service/socket";
+import AuthContext from "../../store/AuthContext";
 
-const ShowFriends = (props: any) => {
+const ShowFriends = () => {
 	const friendCtx = useContext(FriendContext);
 	const [updatedFriends, setUpdatedFriends] = useState<Friend[]>([]);
-	const authCtx = props.authCtx;
+	const authCtx = useContext(AuthContext);
 	const [sendMessage, addListener] = useSocket();
 	const [hoveredFriendId, setHoveredFriendId] = useState<any>();
 
@@ -40,24 +41,21 @@ const ShowFriends = (props: any) => {
 	}, [friendCtx.friends, friendCtx.acceptedDemands]);
 
 	return (
-		<>
+		<div className="container-showfriends">
 		<AvatarGroup>
 			{updatedFriends.map((friend: Friend) => (
 				<li key={friend.id} onMouseOver={() => handleMouseOver(friend.id)} onMouseOut={handleMouseOut}>
 					<div className="icon-friends">
 						<div className={hoveredFriendId === friend.id ? 'avatar-hovered' : ''}>
-							<MyAvatar style='l' authCtx={authCtx} id={friend.id} avatar={friend.avatar} ftAvatar={friend.ftAvatar} />
+							<MyAvatar id={friend.id} avatar={friend.avatar} ftAvatar={friend.ftAvatar} />
 						</div>
-							{hoveredFriendId === friend.id && (
-							<button className="button-remove" onClick={(event) => handleRemoveFriend(event, friend.id)}><i className="fa-solid fa-user-xmark fa-2xs"></i></button>
-							)}
+							<button className="button-remove" onClick={(event) => handleRemoveFriend(event, friend.id)}><i className="fa-solid fa-xmark"></i></button>
 							<Link to={`/users/profile/${friend.id}`}>{friend.username}</Link>
 					</div>
 				</li>
 			))}
 		</AvatarGroup>
-		<br />
-		</>
+		</div>
 	)
 }
 

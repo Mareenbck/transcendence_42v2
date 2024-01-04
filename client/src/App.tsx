@@ -15,6 +15,7 @@ import Setting from './pages/Setting';
 import Scores from'./components/scores/Scores';
 import NotFound from './pages/404';
 import PopupChallenge from './components/modal/PopupChallengeApp';
+import MyFriends from './components/friends/MyFriends';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
 			<Route path='/game' element={<Game />} />
 			<Route path='/chat/message' element={<Chat />} />
 			<Route path='/friends' element={<Friends />} />
+			<Route path='/myfriends' element={<MyFriends />} />
 			<Route path='/auth/signin' element={<Login />} />
 			<Route path='/auth/2fa' element={<TwoFaForm />} />
 			<Route path='/auth/signup' element={<Signup />} />

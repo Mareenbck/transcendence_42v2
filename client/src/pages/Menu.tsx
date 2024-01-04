@@ -13,7 +13,7 @@ const Menu = () => {
 
 	return (
 		<>
-		<SideBar title="Profile" />
+		<SideBar />
 		<div className="container-menu">
 			<Card color='blue' title="Challenge your friend" body="play" type="menu"></Card>
 			<Card color='red' title="Watch a match" body="watch" type="menu" ></Card>

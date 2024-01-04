@@ -12,12 +12,11 @@ const MyProfile = () => {
 
 	return (
 		<>
-		<SideBar title="Profile" />
+		<SideBar/>
 		<div className='container-profile'>
 			<ProfileCard ></ProfileCard>
 			<Card color='blue' title="My Level" icon="level" type="stats"></Card>
 			<Card color='red' title="My Rank" icon="rank" type="stats"></Card>
-			{/* <Card color='green' title="My Friends" type="showFriends" width="400px" friendCtx={friendCtx} authCtx={authCtx} height="auto"></Card> */}
 			<div className='card-wrapper'>
 				<Card color='yellow' title="Match History" type="match"></Card>
 			</div>

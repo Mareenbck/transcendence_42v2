@@ -4,12 +4,11 @@ import { Snackbar } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import MyAvatar from "../user/Avatar";
-import { Popover } from '@mui/material';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { FriendContext } from "../../store/FriendshipContext";
 import useSocket from "../../service/socket";
 import NotificationDemands from "./NotificationDemands";
 import AuthContext from "../../store/AuthContext";
+import { Link } from "react-router-dom";
 
 const FriendsDemands = (props: any) => {
 	const [sendMessage, addListener] = useSocket();
@@ -17,22 +16,10 @@ const FriendsDemands = (props: any) => {
 	const authCtx = useContext(AuthContext);
 	const [pendingDemands, setPendingDemands] = useState<Demand []>([]);
 	const [snackbarOpen, setSnackbarOpen] = useState(false);
-	const [anchorEl, setAnchorEl] = useState(null);
-
-	const handleClick = (event: any) => {
-		setAnchorEl(event.currentTarget);
-	};
-
-	const handleClose = () => {
-		setAnchorEl(null);
-	};
 
 	useEffect(() => {
 		friendCtx.getDemands(authCtx.token, authCtx.userId);
 	}, []);
-
-	const open = Boolean(anchorEl);
-	const id = open ? 'simple-popover' : undefined;
 
 	const handleCloseSnackbar = () => {
 		setSnackbarOpen(false);
@@ -61,48 +48,30 @@ const FriendsDemands = (props: any) => {
 	}, [addListener]);
 
 	return (
-		<>
-			<div className="notif-keyboard">
-				<KeyboardArrowDownIcon onClick={handleClick} className="arrowdown-icon"/>
-				<NotificationDemands />
-			</div>
-			<Popover
-				id={id}
-				open={open}
-				anchorEl={anchorEl}
-				onClose={handleClose}
-				anchorOrigin={{
-					vertical: 'top',
-					horizontal: 'right',
-				}}
-				transformOrigin={{
-					vertical: 'top',
-					horizontal: 'left',
-				}}
-			>
-				<ul>
-					{pendingDemands.map((demand: Demand) => (
-						<li key={demand.id} className='friend'>
-							<MyAvatar style='xs' authCtx={props.authCtx} id={demand.requester.id} avatar={demand.requester.avatar} ftAvatar={demand.requester.ftAvatar}></MyAvatar>
-							<span className='demand-username'>{demand.requester.username}</span>
-							<div onClick={(event: FormEvent) => { handleUpdate(event, demand.id, 'ACCEPTED') }} className='accept'>
-								<CheckCircleOutlineIcon />
-							</div>
-							<Snackbar
-								anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-								open={snackbarOpen}
-								autoHideDuration={1000}
-								onClose={handleCloseSnackbar}
-								message="New Friend Accepted"
+		<div className="cointainer-friends-demands scrollContainer">
+			<NotificationDemands />
+			<ul>
+				{pendingDemands.map((demand: Demand) => (
+					<li key={demand.id} className='friend-demands'>
+						<MyAvatar authCtx={props.authCtx} id={demand.requester.id} avatar={demand.requester.avatar} ftAvatar={demand.requester.ftAvatar}></MyAvatar>
+						<span><Link to={`/users/profile/${demand.requester.id}`}>{demand.requester.username}</Link></span>
+						<div onClick={(event: FormEvent) => { handleUpdate(event, demand.id, 'ACCEPTED') }} className='accept'>
+							<CheckCircleOutlineIcon />
+						</div>
+						<Snackbar
+							anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+							open={snackbarOpen}
+							autoHideDuration={1000}
+							onClose={handleCloseSnackbar}
+							message="New Friend Accepted"
 							/>
-							<div onClick={(event: FormEvent) => { handleUpdate(event, demand.id, 'REFUSED') }} className='deny'>
-								<HighlightOffIcon />
-							</div>
-						</li>
-					))}
-				</ul>
-			</Popover>
-		</>
+						<div onClick={(event: FormEvent) => { handleUpdate(event, demand.id, 'REFUSED') }} className='deny'>
+							<HighlightOffIcon />
+						</div>
+					</li>
+				))}
+			</ul>
+		</div>
 	)
 }
 

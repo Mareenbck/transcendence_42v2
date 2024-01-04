@@ -5,7 +5,7 @@ import AuthContext from "../store/AuthContext";
 import MyAccountMenu from "./AccountMenu";
 
 
-const Sidebar = (props: any) => {
+const Sidebar = () => {
     const authCtx = useContext(AuthContext);
     const [activeLink, setActiveLink] = useState('');
     const location = useLocation();
@@ -15,6 +15,7 @@ const Sidebar = (props: any) => {
         { name: "Game", path: "/game",  icon: "fa-solid fa-table-tennis-paddle-ball"},
         { name: "Chat", path: "/chat/message", icon: "fa-solid fa-comments" },
         { name: "Leaderboard", path: "/leaderboard", icon: "fa-solid fa-ranking-star" },
+        { name: "My Friends", path: "/myfriends", icon: "fa-solid fa-user-group" },
       ];
 
       useEffect(() => {
