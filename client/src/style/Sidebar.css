@@ -28,6 +28,7 @@
     		align-items: center;
 		}
 		li {
+			position: relative;
 			display: flex;
 			align-items: center;
 			height: 100%;
@@ -84,6 +85,15 @@
 				font-size: 63px;
 				color: rgb(203, 217, 242);
 			}
+		}
+	}
+	.MuiBadge-root {
+		.badge-notification {
+			position: absolute;
+			font-size: 14px;
+    		left: 23%;
+    		z-index: 2;
+    		bottom: 36%;
 		}
 	}
 }

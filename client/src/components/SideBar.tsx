@@ -3,6 +3,7 @@ import '../style/Sidebar.css'
 import { Link, useLocation } from "react-router-dom";
 import AuthContext from "../store/AuthContext";
 import MyAccountMenu from "./AccountMenu";
+import NotificationDemands from "./friends/NotificationDemands";
 
 
 const Sidebar = () => {
@@ -47,6 +48,10 @@ const Sidebar = () => {
                             </div>
                                 {link.name}
                             </Link>
+
+                            {link.name === "My Friends" ? 
+                                <NotificationDemands />
+                                : null}
                         </li>
                     ))}
                 </ul>

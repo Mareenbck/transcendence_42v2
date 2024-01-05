@@ -3,8 +3,7 @@ import AuthContext from "../store/AuthContext";
 import { io, Manager } from "socket.io-client";
 import { useMemo } from "react";
 
-const manager = new Manager("ws://" + window.location.hostname + ':3000'
-	, );
+const manager = new Manager("ws://" + window.location.hostname + ':3000', );
 
 
 export default function useSocket() {

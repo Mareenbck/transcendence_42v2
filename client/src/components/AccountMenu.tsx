@@ -11,7 +11,6 @@ import MyAvatar from './user/Avatar';
 import { Link } from "react-router-dom";
 import HomeIcon from '@mui/icons-material/Home';
 import AuthContext from '../store/AuthContext';
-import NotificationDemands from './friends/NotificationDemands';
 import useSocket from '../service/socket';
 import { GameStatus } from './game/interface_game';
 
@@ -51,7 +50,6 @@ export default function MyAccountMenu(props: any) {
 				aria-expanded={open ? 'true' : undefined}
 				>
 			<div className='notif-sidebar'>
-				<NotificationDemands />
 				<MyAvatar style='m' avatar={authCtx.avatar} authCtx={authCtx} id={authCtx.userId}/>
 			</div>
 			</IconButton>

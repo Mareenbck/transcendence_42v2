@@ -49,6 +49,7 @@ const FriendsDemands = (props: any) => {
 
 	return (
 		<div className="cointainer-friends-demands scrollContainer">
+			<h5>My Demands</h5>
 			<NotificationDemands />
 			<ul>
 				{pendingDemands.map((demand: Demand) => (

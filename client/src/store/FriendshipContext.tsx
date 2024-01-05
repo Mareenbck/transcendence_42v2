@@ -50,7 +50,7 @@ export const FriendContextProvider = (props: any) => {
 			setAcceptedDemands(updatedDemands);
 			setPendingDemandsCount(demands.filter((demand: Demand) => demand.status === 'PENDING').length)
 		});
-	}, [addListener]);
+	}, [addListener, acceptedDemands]);
 
 	useEffect(() => {
 		addListener('pendingDemands', (pendingDemands: Demand[]) => {
@@ -182,9 +182,7 @@ export const FriendContextProvider = (props: any) => {
 				if (res === 'ACCEPTED') {
 					setAcceptedDemands([...acceptedDemands, data]);
 				}
-				setPendingDemandsCount((prevCount) => {
-					return prevCount - 1;
-				});
+				setPendingDemandsCount((prevCount) => prevCount - 1);
 			}
 		} catch (error) {
 			console.log("error", error);
